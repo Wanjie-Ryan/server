@@ -49,7 +49,7 @@ app.use(rateLimit({
 app.use((err, req, res, next)=>{
 
     const errorstatus = err.status || StatusCodes.INTERNAL_SERVER_ERROR
-    const errormesage = err.message || 'Something went wrong'
+    const errormessage = err.message || 'Something went wrong'
     return res.status(errorstatus).json({
         success:false,
         status:errorstatus,
