@@ -8,6 +8,9 @@ const xss = require('xss-clean')
 const cookie = require('cookie-parser')
 const rateLimit = require('express-rate-limit')
 require('dotenv').config()
+const {StatusCodes} = require('http-status-codes')
+
+
 
 
 
@@ -40,10 +43,20 @@ app.use(rateLimit({
 
 
 
+//ERROR HANDLING MIDDLEWARE
 
 
+app.use((err, req, res, next)=>{
 
-
+    const errorstatus = err.status || StatusCodes.INTERNAL_SERVER_ERROR
+    const errormesage = err.message || 'Something went wrong'
+    return res.status(errorstatus).json({
+        success:false,
+        status:errorstatus,
+        message:errormessage,
+        stack:err.stack,
+    })
+})
 
 
 
@@ -52,6 +65,33 @@ app.use(rateLimit({
 // CONNECTION TO THE DB
 
 
+const DBConnection = async() =>{
+
+
+    try{
+
+        await conectionDB(process.env.mongo_url)
+
+        app.listen(port, ()=>{
+
+            console.log(`server is running on port, ${port}`)
+        })
+
+
+
+    }
+
+    catch(err){
+
+        console.log(err)
+        process.exit(1)
+
+
+    }
+}
+
+
+DBConnection()
 
 
 
