@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 3007
+const port = process.env.port || 3007
+const conectionDB = require('../server/DB/db')
+const cors = require('cors')
+const helmet = require('helmet')
+const xss = require('xss-clean')
 
 
 
-app.listen(port, (req,res) => {
 
-    console.log( `server is listening on port ${port}`)
+//SECURITY MIDDLEWARES  
 
-    // res.send('hey')
-})
