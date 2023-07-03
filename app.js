@@ -10,6 +10,8 @@ const rateLimit = require('express-rate-limit')
 require('dotenv').config()
 const {StatusCodes} = require('http-status-codes')
 
+// ASPIRANT
+const Authaspirant = require('../server/Routes/Aspirants/Auth')
 
 
 
@@ -31,7 +33,7 @@ app.use(rateLimit({
 
 //ROUTES
 
-
+app.use('/api/aspirant/auth', Authaspirant)
 
 
 

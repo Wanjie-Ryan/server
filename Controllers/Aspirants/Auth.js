@@ -11,7 +11,7 @@ const {StatusCodes} = require('http-status-codes')
 const register = (req, res)=>{
 
 
-    res.send('Register')
+    
 
 }
 
