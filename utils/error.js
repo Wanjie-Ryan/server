@@ -7,4 +7,4 @@ const createError =(status, message)=>{
 }
 
 
-mongoose.exports = createError
+module.exports = createError

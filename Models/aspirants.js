@@ -31,7 +31,8 @@ const aspirantSchema = new mongoose.Schema({
 
         type:Number,
         unique:true,
-        required:[true, 'The Aspirant PhoneNumber must be provided']
+        required:[true, 'The Aspirant PhoneNumber must be provided'],
+        maxLength:10
     },
 
     Position:{
