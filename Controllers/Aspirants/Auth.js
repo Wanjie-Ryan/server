@@ -27,7 +27,7 @@ const register = async(req, res, next)=>{
 
     catch(err){
 
-        next(err(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
     }
 
 
@@ -46,14 +46,24 @@ const login = async(req, res, next)=>{
             res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide the email and the password'})
         }
 
-        const farmerEmail = await aspirantmodel.findOne({email})
+        const AspirantEmail = await aspirantmodel.findOne({email})
 
-        if(!farmerEmail){
+        if(!AspirantEmail){
 
             res.status(StatusCodes.NOT_FOUND).json({msg:'The Email does not exist!'})
         }
 
-        
+        const correctPassword = await AspirantEmail.checkpwd(Password);
+
+        if (!correctPassword) {
+          return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .json({ msg: "Incorrect password" });
+        }
+    
+        res.status(StatusCodes.OK).json({msg:'Aspirant has been logged in successfully', AspirantEmail})
+
+
 
 
 
@@ -62,6 +72,7 @@ const login = async(req, res, next)=>{
 
     catch(err){
 
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
 
 
     }
