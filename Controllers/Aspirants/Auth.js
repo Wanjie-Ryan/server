@@ -7,7 +7,6 @@ const error = require('../../utils/error');
 
 
 
-
 const register = async(req, res, next)=>{
 
     try{
@@ -63,7 +62,11 @@ const login = async(req, res, next)=>{
     
         res.status(StatusCodes.OK).json({msg:'Aspirant has been logged in successfully', AspirantEmail})
 
+        const token = jwt.sign({id:AspirantEmail._id, name:AspirantEmail.name}, process.env.Aspirant_secret_key, {expiresIn:'1d'})
 
+        console.log(token)
+
+        res.cookie('AspirantToken', token, {secure:True, httpOnly:True, maxAge:24*60*60})
 
 
 
