@@ -39,6 +39,20 @@ const login = async(req, res, next)=>{
     try{
 
         const {email, Password} = req.body
+
+
+        if(!email || !Password){
+
+            res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide the email and the password'})
+        }
+
+        const farmerEmail = await aspirantmodel.findOne({email})
+
+        if(!farmerEmail){
+
+            res.status(StatusCodes.NOT_FOUND).json({msg:'The Email does not exist!'})
+        }
+
         
 
 
