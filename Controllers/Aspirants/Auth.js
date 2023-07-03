@@ -60,15 +60,13 @@ const login = async(req, res, next)=>{
             .json({ msg: "Incorrect password" });
         }
     
-        res.status(StatusCodes.OK).json({msg:'Aspirant has been logged in successfully', AspirantEmail})
-
+        
         const token = jwt.sign({id:AspirantEmail._id, name:AspirantEmail.name}, process.env.Aspirant_secret_key, {expiresIn:'1d'})
-
-        console.log(token)
-
-        res.cookie('AspirantToken', token, {secure:True, httpOnly:True, maxAge:24*60*60})
-
-
+        
+        // console.log(token)
+        
+        
+        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', AspirantEmail})
 
 
     }
@@ -83,4 +81,11 @@ const login = async(req, res, next)=>{
 }
 
 
-module.exports ={register, login}
+const logout = (req, res)=>{
+
+    res.clearCookie('AspirantToken', { secure: true, httpOnly: true }).json({ msg: 'Logged out successfully' })
+
+}
+
+
+module.exports ={register, login,logout}
