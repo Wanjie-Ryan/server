@@ -7,15 +7,60 @@ const {StatusCodes} = require('http-status-codes')
 
 const verifyJwt = (req, res)=>{
 
+    try{
 
-    const token = req.cookies.AspirantToken
+ 
+        const token = req.cookies.AspirantToken
+        
+        console.log(token)
+        
+        if(!token){
+            
+            res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
+        }
+        
+        const authHeaders = req.headers.authorization
+        
+        if(!authHeaders || !authHeaders.StartsWith('Bearer')){
+            
+            res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
+        }
 
-    console.log(token)
 
-    if(!token){
+        jwt.verify(token, process.env.Aspirant_secret_key, (err, decoded)=>{
 
-        res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
+            if(err){
+
+                return res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
+            }
+
+            const {id, name} = decoded
+
+            req.user ={
+
+                id:id,
+                Aspirantname:name
+            }
+
+
+        })
+
+
+
+
+        
     }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+
+
+
+    }
+
+    next()
+
 
 
 }
