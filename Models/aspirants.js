@@ -19,13 +19,38 @@ const aspirantSchema = new mongoose.Schema({
     email:{
 
         type:String,
-        required:[true, 'The Aspirant email must be provided']
+        unique:true,
+        required:[true, 'The Aspirant email must be provided'],
+        match:[
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide a valid email',
+            
+            ], 
     },
 
     phoneNumber:{
 
         type:Number,
+        unique:true,
         required:[true, 'The Aspirant PhoneNumber must be provided']
+    },
+
+    Position:{
+
+        type:String,
+        required:[true, 'The Aspirant Position must be provided']
+    },
+
+    Represent:{
+
+        type:String,
+        required:[true, 'Aspirant must select The position he or she is vying']
+    },
+
+    Password:{
+
+        type:String,
+        required:[true, 'The Aspirant Password must be provided'],
+        minLength:5
     }
 
 
