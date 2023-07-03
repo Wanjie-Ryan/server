@@ -21,7 +21,7 @@ const verifyJwt = (req, res)=>{
         
         const authHeaders = req.headers.authorization
         
-        if(!authHeaders || !authHeaders.StartsWith('Bearer')){
+        if(!authHeaders || !authHeaders.StartsWith(' Bearer')){
             
             res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
         }
@@ -42,6 +42,7 @@ const verifyJwt = (req, res)=>{
                 Aspirantname:name
             }
 
+            next()
 
         })
 
@@ -59,7 +60,6 @@ const verifyJwt = (req, res)=>{
 
     }
 
-    next()
 
 
 
