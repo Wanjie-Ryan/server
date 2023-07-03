@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-
-
+const bcrypt = require("bcryptjs");
 
 
 const aspirantSchema = new mongoose.Schema({
@@ -54,12 +53,36 @@ const aspirantSchema = new mongoose.Schema({
         minLength:5
     }
 
+},{timestamps:true})
+
+aspirantSchema.pre("save", async function (next) {
+
+    try {
+
+      const salt = await bcrypt.genSalt(10);
+      this.Password = await bcrypt.hash(this.Password, salt);
+      next();
+
+    } catch (err) {
+      next(err);
+    }
+
+  });
+  
+  aspirantSchema.methods.checkpwd = async function (candidatePassword) {
+
+    try {
+
+      const isMatch = await bcrypt.compare(candidatePassword, this.Password);
+      return isMatch;
+
+    } catch (err) {
+      throw err;
+    }
+  };
+  
 
 
-
-
-
-})
 
 
 
