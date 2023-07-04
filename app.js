@@ -15,6 +15,12 @@ const Authaspirant = require('../server/Routes/Aspirants/Auth')
 
 
 
+//VOTERS
+
+const postvoters = require('../server/Routes/Voters/voter')
+
+
+
 
 //SECURITY MIDDLEWARES  
 
@@ -31,12 +37,15 @@ app.use(rateLimit({
 
 
 
-//ROUTES
+//ROUTES FOR ASPIRANT
 
 app.use('/api/aspirant/auth', Authaspirant)
 
 
 
+// ROUTES FOR VOTERS
+
+app.use('/api/voters', postvoters)
 
 
 
