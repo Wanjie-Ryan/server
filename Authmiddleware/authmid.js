@@ -10,11 +10,11 @@ const verifyJwt = (req, res)=>{
     try{
 
  
-        const token = req.cookies.AspirantToken
+        const cookietoken = req.cookies.AspirantToken
         
-        console.log(token)
+        console.log(cookietoken)
         
-        if(!token){
+        if(!cookietoken){
             
             res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
         }
@@ -25,6 +25,12 @@ const verifyJwt = (req, res)=>{
             
             res.status(StatusCodes.FORBIDDEN).json({msg:'You are not authenticated to access this route'})
         }
+
+        const token = authHeaders.split(' ')[1]
+
+        console.log(token)
+
+        
 
 
         jwt.verify(token, process.env.Aspirant_secret_key, (err, decoded)=>{
