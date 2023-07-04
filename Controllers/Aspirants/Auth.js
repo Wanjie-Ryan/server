@@ -52,6 +52,12 @@ const login = async(req, res, next)=>{
             res.status(StatusCodes.NOT_FOUND).json({msg:'The Email does not exist!'})
         }
 
+        const aspirantnew = AspirantEmail.toObject()
+        delete aspirantnew.Password
+        delete aspirantnew.phoneNumber
+        delete aspirantnew.email
+        delete aspirantnew.image
+
         const correctPassword = await AspirantEmail.checkpwd(Password);
 
         if (!correctPassword) {
@@ -66,7 +72,7 @@ const login = async(req, res, next)=>{
         // console.log(token)
         
         
-        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', AspirantEmail})
+        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew})
 
 
     }
