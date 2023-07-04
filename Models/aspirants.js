@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const aspirantSchema = new mongoose.Schema({
 
+  
+
     image:{
 
         type:String
