@@ -8,6 +8,8 @@ const error = require('../../utils/error');
 const AllVoters = (req, res)=>{
 
 
+    res.send('join')
+
 
 
 
