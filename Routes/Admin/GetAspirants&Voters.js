@@ -4,8 +4,8 @@ const {getAspirants, getVoters} = require('../../Controllers/Admin/GetAspirants&
 
 
 
-router.route('/allvoters').get(getAspirants)
-router.route('/allaspirants').get(getVoters)
+router.route('/allaspirants').get(getAspirants)
+router.route('/allvoters').get(getVoters)
 
 
 module.exports = router

@@ -6,18 +6,51 @@ const aspirantmodel = require('../../Models/aspirants')
 
 
 
-const getAspirants = (req, res)=>{
+const getAspirants = async(req, res, next)=>{
 
+    try{
 
-    res.send('hey')
+        const allaspirants = await aspirantmodel.find({})
+
+        if(!allaspirants){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No aspirants found!'})
+        }
+        
+         res.status(StatusCodes.OK).json({msg:`All aspirants fetched`, allaspirants})
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+
+    }
 
 }
 
 
-const getVoters = (req, res)=>{
+const getVoters = async(req, res, next)=>{
 
 
-    res.send('jhop')
+    try{
+
+        const allvoters = await aspirantmodel.find({})
+
+        if(!allvoters){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No voters found!'})
+        }
+
+        res.status(StatusCodes.OK).json({msg:'All voters fetched', allvoters})
+        
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
 }
 
 
