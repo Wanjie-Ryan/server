@@ -19,7 +19,9 @@ const GetVoters = require('../server/Routes/Aspirants/GetVoters')
 
 const postvoters = require('../server/Routes/Voters/voter')
 
+//ADMIN
 
+const getall = require('../server/Routes/Admin/GetAspirants&Voters')
 
 
 //SECURITY MIDDLEWARES  
@@ -48,6 +50,10 @@ app.use('/api/aspirant', GetVoters)
 app.use('/api/voters', postvoters)
 
 
+
+// ROUTES FOR ADMIN
+
+app.use('/api/admin', getall)
 
 
 
