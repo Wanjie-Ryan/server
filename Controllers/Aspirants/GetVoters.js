@@ -11,17 +11,21 @@ const AllVoters = async(req, res, next)=>{
 
     try{
 
-        const allvoters = await votersmodel.find({})
+        let aspirantIdinvoters
+        let originalAspID
+        let matchedvoters = []
+
+        const allvoters = await votersmodel.find({ })
 
         const aspirantData = await aspirantmodel.find({})
 
-        let aspirantIdinvoters
-        let originalAspID
 
+
+    
         allvoters.map((aspirant)=>{
 
              aspirantIdinvoters = aspirant.AspirantID
-             console.log(aspirantIdinvoters)
+            //  console.log(aspirantIdinvoters)
 
 
         })
@@ -29,20 +33,28 @@ const AllVoters = async(req, res, next)=>{
        aspirantData.map((originalaspirant)=>{
 
              originalAspID = originalaspirant._id
-             console.log(originalAspID)
+            //  console.log(originalAspID)
        })
+
+       const aspirantsvoters = await aspirantmodel.find({ aspirantIdinvoters})
 
        if(aspirantIdinvoters.toString() === originalAspID.toString() ){
 
-            return res.status(StatusCodes.OK).json({msg:`The voters that voted for you are:`, voters:allvoters})
-
+            matchedvoters.push(aspirantsvoters)
 
        }
 
-       else{
+    //    else{
 
-            return res.status(StatusCodes.NOT_FOUND).json({msg:'No voters fetched'})
+    //         return res.status(StatusCodes.NOT_FOUND).json({msg:'No voters fetched'})
+    //    }
+
+       if(matchedvoters.length === 0){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:'No voters have been fetched'})
        }
+
+       return res.status(StatusCodes.OK).json({msg:`The voters who voted for you are:` , voters:matchedvoters})
 
 
 
