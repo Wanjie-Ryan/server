@@ -9,7 +9,7 @@ const postdetails = async(req, res,next)=>{
 
     try{
 
-        const {AspirantID, name, email} = req.body
+        const {AspirantID, name, phoneNumber} = req.body
 
         const aspirantperson = await aspirant.findById(AspirantID)
 
@@ -18,7 +18,7 @@ const postdetails = async(req, res,next)=>{
             return res.status(StatusCodes.NOT_FOUND).json({msg:'Aspirant not found'})
         }
 
-        const voterdata = await votersmodel.create({name, email, AspirantID:aspirantperson})
+        const voterdata = await votersmodel.create({name, phoneNumber, AspirantID:aspirantperson})
 
         if(!voterdata){
 

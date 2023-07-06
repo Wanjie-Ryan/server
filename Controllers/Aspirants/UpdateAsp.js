@@ -35,7 +35,6 @@ const updateAspirant = async(req, res, next)=>{
         res.status(StatusCodes.OK).json({msg:'Aspirant details updated sucessfully', updateaspirant})
 
 
-
     }
 
     catch(err){

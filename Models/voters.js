@@ -17,15 +17,12 @@ const VotersSchema = mongoose.Schema({
 
     },
 
-    email:{
+    phoneNumber:{
 
-        type:String,
-        required:[true, 'The voters email is required'],
+        type:Number,
+        required:[true, 'The voters phoneNumber is required'],
         unique:true,
-        match:[
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide a valid email',
-            
-            ],
+        
     }
 
 },{timestamps:true})
