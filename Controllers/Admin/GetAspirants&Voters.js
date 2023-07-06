@@ -92,12 +92,34 @@ const updateAspirant = async(req,res, next)=>{
 // DELETING AN ASPIRANT
 
 
-const deleteAspirant = (req,res)=>{
+const deleteAspirant = async(req,res, next)=>{
 
-    res.send('delete')
+    try{
+
+
+
+        
+        const {id:Aspid} = req.params
+
+        const deleteAsp = await aspirantmodel.findByIdAndDelete({_id:Aspid})
+
+        if(!Aspid){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`The Aspirant with id:${Aspid} cannot be found`})
+        }
+        
+        res.status(StatusCodes.OK).json({msg:`Aspirant with the id:${Aspid} has been deleted successfully`})
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
+
 }
 
 
+        // VOTERS
 
 
 
@@ -128,6 +150,14 @@ const getVoters = async(req, res, next)=>{
 }
 
 
+// GETTING A SINGLE VOTER
+
+const getSingleVoter = (req,res)=>{
+
+    res.send('single')
+}
 
 
-module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters}
+
+
+module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters, getSingleVoter}
