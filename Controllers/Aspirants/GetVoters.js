@@ -43,7 +43,7 @@ const AllVoters = async(req, res, next)=>{
        
        if(aspvo === originalAspID.toString() ){
            
-           aspirantsvoters = await votersmodel.find({AspirantID:aspvo})
+           aspirantsvoters = await votersmodel.find({AspirantID:aspvo}).count()
 
         
             return res.status(StatusCodes.OK).json({msg:`The voters who voted for you are:` , voters:aspirantsvoters})

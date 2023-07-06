@@ -43,7 +43,7 @@ app.use(rateLimit({
 
 app.use('/api/aspirant/auth', Authaspirant)
 app.use('/api/aspirant', GetVoters)
-app.use('api/aspirant',UpdateAsp)
+app.use('/api/aspirant',UpdateAsp)
 
 // ROUTES FOR VOTERS
 
