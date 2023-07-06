@@ -14,6 +14,7 @@ const AllVoters = async(req, res, next)=>{
         let aspirantIdinvoters
         let originalAspID
         let matchedvoters = []
+        let aspirantsvoters
 
         const allvoters = await votersmodel.find({ })
 
@@ -36,15 +37,22 @@ const AllVoters = async(req, res, next)=>{
             //  console.log(originalAspID)
        })
 
-       const aspirantsvoters = await aspirantmodel.find({ aspirantIdinvoters})
+       let aspvo = aspirantIdinvoters.toString()
 
-       if(aspirantIdinvoters.toString() === originalAspID.toString() ){
+    //    console.log(aspvo)
 
-            matchedvoters.push(aspirantsvoters)
+       
+       if(aspvo === originalAspID.toString() ){
+           
+           aspirantsvoters = await votersmodel.find({AspirantID:aspvo})
 
-       }
+           console.log(aspirantsvoters)
 
-    //    else{
+           matchedvoters.push(aspirantsvoters)
+           
+        }
+        
+        //    else{
 
     //         return res.status(StatusCodes.NOT_FOUND).json({msg:'No voters fetched'})
     //    }
