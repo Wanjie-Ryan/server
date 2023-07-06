@@ -37,7 +37,16 @@ const getSingleAspirant = async(req, res, next)=>{
     try{
 
 
+        const {id:Aspid} = req.params
 
+        const singleAsp = await aspirantmodel.findById({_id:Aspid})
+
+        if(!singleAsp){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`The Aspirant with the ID: ${Aspid} cannot be found`})
+        }
+
+        res.status(StatusCodes.OK).json({msg:`The Aspirant with the ID: ${Aspid} has been fetched successfully`, singleAsp})
 
 
     }
@@ -46,6 +55,14 @@ const getSingleAspirant = async(req, res, next)=>{
 
         next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
     }
+}
+
+
+// UPDATING AN ASPIRANT
+
+const updateAspirant = (req,res)=>{
+
+    res.send('fjfj')
 }
 
 
@@ -81,4 +98,4 @@ const getVoters = async(req, res, next)=>{
 
 
 
-module.exports ={getAllAspirants, getSingleAspirant, getVoters}
+module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, getVoters}
