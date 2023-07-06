@@ -60,9 +60,33 @@ const getSingleAspirant = async(req, res, next)=>{
 
 // UPDATING AN ASPIRANT
 
-const updateAspirant = (req,res)=>{
+const updateAspirant = async(req,res, next)=>{
 
-    res.send('fjfj')
+    try{
+
+        const {id:Aspid} = req.params
+
+        const {name, Position, Represnt} = req.body
+
+        const updateAsp = await aspirantmodel.findByIdAndUpdate({_id:Aspid}, req.body, {
+
+            runValidators:true,
+            new:true
+        })
+
+        if(!Aspid){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`The Aspirant with id:${Aspid} cannot be found`})
+        }
+
+        res.status(StatusCodes.OK).json({msg:`The Aspirant with the id:${Aspid} has been fetched successfully`, updateAsp})
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
 }
 
 
