@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {getAspirants, getVoters} = require('../../Controllers/Admin/GetAspirants&Voters')
+const {getAllAspirants, getSingleAspirant, getVoters} = require('../../Controllers/Admin/GetAspirants&Voters')
 
 
 
-router.route('/allaspirants').get(getAspirants)
+router.route('/allaspirants').get(getAllAspirants)
+router.route('/allaspirants/:id').get(getSingleAspirant)
 router.route('/allvoters').get(getVoters)
 
 

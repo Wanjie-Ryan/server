@@ -13,7 +13,7 @@ const verifyJwt = (req, res, next)=>{
  
         const cookietoken = req.cookies.AspirantToken
         
-        console.log(cookietoken)
+        // console.log(cookietoken)
         
         if(!cookietoken){
             

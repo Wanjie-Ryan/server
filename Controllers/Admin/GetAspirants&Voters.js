@@ -4,9 +4,9 @@ const error = require('../../utils/error');
 const aspirantmodel = require('../../Models/aspirants')
 
 
+// GETTING ALL ASPIRANTS
 
-
-const getAspirants = async(req, res, next)=>{
+const getAllAspirants = async(req, res, next)=>{
 
     try{
 
@@ -29,6 +29,31 @@ const getAspirants = async(req, res, next)=>{
 
 }
 
+
+// GETTING A SINGLE ASPIRANT
+
+const getSingleAspirant = async(req, res, next)=>{
+
+    try{
+
+
+
+
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
+}
+
+
+
+
+
+
+// GETTING ALL VOTERS
 
 const getVoters = async(req, res, next)=>{
 
@@ -54,4 +79,6 @@ const getVoters = async(req, res, next)=>{
 }
 
 
-module.exports ={getAspirants, getVoters}
+
+
+module.exports ={getAllAspirants, getSingleAspirant, getVoters}
