@@ -13,7 +13,7 @@ const {StatusCodes} = require('http-status-codes')
 // ASPIRANT
 const Authaspirant = require('../server/Routes/Aspirants/Auth')
 const GetVoters = require('../server/Routes/Aspirants/GetVoters')
-
+const UpdateAsp = require('../server/Routes/Aspirants/UpdateAsp')
 
 //VOTERS
 
@@ -43,7 +43,7 @@ app.use(rateLimit({
 
 app.use('/api/aspirant/auth', Authaspirant)
 app.use('/api/aspirant', GetVoters)
-
+app.use('api/aspirant',UpdateAsp)
 
 // ROUTES FOR VOTERS
 
