@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getAllAspirants, getSingleAspirant, updateAspirant, getVoters} = require('../../Controllers/Admin/GetAspirants&Voters')
+const {getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters} = require('../../Controllers/Admin/GetAspirants&Voters')
 
 
 // ROUTES FOR ASPIRANTS
@@ -8,7 +8,7 @@ const {getAllAspirants, getSingleAspirant, updateAspirant, getVoters} = require(
 router.route('/allaspirants').get(getAllAspirants)
 router.route('/allaspirants/:id').get(getSingleAspirant)
 router.route('/updateaspirants/:id').patch(updateAspirant)
-
+router.route('/deleteaspirants/:id').delete(deleteAspirant)
 
 // ROUTES FOR VOTERS
 

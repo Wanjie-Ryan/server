@@ -89,6 +89,14 @@ const updateAspirant = async(req,res, next)=>{
     }
 }
 
+// DELETING AN ASPIRANT
+
+
+const deleteAspirant = (req,res)=>{
+
+    res.send('delete')
+}
+
 
 
 
@@ -122,4 +130,4 @@ const getVoters = async(req, res, next)=>{
 
 
 
-module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, getVoters}
+module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters}
