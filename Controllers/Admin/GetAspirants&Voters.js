@@ -182,9 +182,20 @@ const getSingleVoter = async(req,res, next)=>{
 
 // UPDATING SINGLE VOTER
 
-const updateSingleVoter = (req,res)=>{
+const updateSingleVoter = async(req,res, next)=>{
 
-    res.send('Voter updated')
+    try{
+
+        
+
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
+    
 }
 
 
