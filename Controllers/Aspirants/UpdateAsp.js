@@ -1,21 +1,21 @@
 const {StatusCodes} = require('http-status-codes')
 const error = require('../../utils/error');
 const aspirantmodel = require('../../Models/aspirants')
-const bcrypt = require('bcryptjs')
+// const bcrypt = require('bcryptjs')
 
 
 const updateAspirant = async(req, res, next)=>{
 
     try{
 
-        const {image, name, email, phoneNumber, Position, Represent, Password} = req.body
+        const {image, name} = req.body
 
-        if(Password){
+        // if(Password){
 
-            const salt =await bcrypt.genSalt(10)
-            const hashedpassword = await bcrypt.hash(Password,salt)
-            req.body.Password = hashedpassword
-        }
+        //     const salt =await bcrypt.genSalt(10)
+        //     const hashedpassword = await bcrypt.hash(Password,salt)
+        //     req.body.Password = hashedpassword
+        // }
 
 
 
