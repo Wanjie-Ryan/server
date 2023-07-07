@@ -195,6 +195,13 @@ const updateSingleVoter = async(req,res, next)=>{
             runValidators:true
         })
 
+        if(!updatevoter){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`The voter with the id:${voterId} cannot be found`})
+        }
+
+        res.status(StatusCodes.OK).json({msg:`Voter with id:${voterId} has been updated successfully`, updatevoter})
+
 
     }
 
@@ -206,5 +213,35 @@ const updateSingleVoter = async(req,res, next)=>{
 }
 
 
+// DELETING SINGLE VOTER
 
-module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters, getSingleVoter,updateSingleVoter}
+const deleteVoter = async(req, res, next)=>{
+
+    try{
+
+        const {id:voterId} = req.params
+
+        const deletevoter = await votersmodel.findByIdAndDelete({_id:voterId})
+
+        if(!deletevoter){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`The voter with the id:${voterId} cannot be found`})
+        }
+
+        res.status(StatusCodes.OK).json({msg:`The voter with the id:${voterId} has been deleted`})
+
+
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR),err.message)
+
+
+    }
+}
+
+
+
+module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters, getSingleVoter,updateSingleVoter,deleteVoter}
