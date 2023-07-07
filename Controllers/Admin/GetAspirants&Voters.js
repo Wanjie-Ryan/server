@@ -131,7 +131,7 @@ const getVoters = async(req, res, next)=>{
 
     try{
 
-        const allvoters = await aspirantmodel.find({})
+        const allvoters = await votersmodel.find({})
 
         if(!allvoters){
 
@@ -152,12 +152,41 @@ const getVoters = async(req, res, next)=>{
 
 // GETTING A SINGLE VOTER
 
-const getSingleVoter = (req,res)=>{
+const getSingleVoter = async(req,res, next)=>{
 
-    res.send('single')
+    try{
+
+        const {id:voterId} = req.params
+
+        const singlevoter = await votersmodel.findById({_id:voterId})
+
+        if(!singlevoter){
+
+            return res.status(StatusCodes.NOT_FOUND).json({msg:`Voter with the id:${voterId} cannot be found`})
+
+        }
+
+        res.status(StatusCodes.OK).json({msg:`Voter with the id:${voterId} has been fetched successfully`, singlevoter})
+
+
+
+    }
+
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+    }
+}
+
+
+// UPDATING SINGLE VOTER
+
+const updateSingleVoter = (req,res)=>{
+
+    res.send('Voter updated')
 }
 
 
 
-
-module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters, getSingleVoter}
+module.exports ={getAllAspirants, getSingleAspirant, updateAspirant, deleteAspirant, getVoters, getSingleVoter,updateSingleVoter}
