@@ -186,7 +186,14 @@ const updateSingleVoter = async(req,res, next)=>{
 
     try{
 
-        
+        const {name, phoneNumber} = req.body
+        const {id:voterId} = req.params
+
+        const updatevoter = await votersmodel.findByIdAndUpdate({_id:voterId}, req.body, {
+
+            new:true,
+            runValidators:true
+        })
 
 
     }
