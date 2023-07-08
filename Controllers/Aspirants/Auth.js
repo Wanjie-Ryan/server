@@ -72,7 +72,8 @@ const login = async(req, res, next)=>{
         // console.log(token)
         
         
-        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew})
+        
+        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew })
 
 
     }
