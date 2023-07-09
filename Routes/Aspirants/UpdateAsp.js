@@ -5,7 +5,7 @@ const verifyJwt = require('../../Authmiddleware/authmid')
 
 
 
-router.route('/updateaspirant/:id').patch(verifyJwt, updateAspirant)
+router.route('/updateaspirant/:id').patch(updateAspirant)
 
 
 module.exports = router

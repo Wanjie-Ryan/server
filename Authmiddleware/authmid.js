@@ -4,8 +4,6 @@ const error = require('../../server/utils/error');
 
 
 
-
-
 const verifyJwt = (req, res, next)=>{
 
     try{

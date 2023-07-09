@@ -56,7 +56,7 @@ const login = async(req, res, next)=>{
         delete aspirantnew.Password
         delete aspirantnew.phoneNumber
         delete aspirantnew.email
-        delete aspirantnew.image
+        // delete aspirantnew.image
 
         const correctPassword = await AspirantEmail.checkpwd(Password);
 
@@ -73,7 +73,11 @@ const login = async(req, res, next)=>{
         
         
         
-        res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew })
+        // res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew })
+
+        res.status(StatusCodes.OK).set({AspirantToken:token}).json({msg:`Aspirant has been logged in successfully`, aspirantnew})
+
+
 
 
     }
@@ -95,4 +99,22 @@ const logout = (req, res)=>{
 }
 
 
-module.exports ={register, login,logout}
+const veirfyToken = async(req, res, next)=>{
+
+    try{
+
+        
+
+
+    }
+
+    catch(err){
+
+        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+
+
+    }
+}
+
+
+module.exports ={register, login,logout,veirfyToken}

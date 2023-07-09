@@ -27,6 +27,10 @@ const getall = require('../server/Routes/Admin/GetAspirants&Voters')
 //SECURITY MIDDLEWARES  
 
 app.use(cors())
+app.use(cors({
+
+    exposedHeaders:['AspirantToken']
+}))
 app.use(helmet())
 app.use(xss())
 app.use(cookie())
