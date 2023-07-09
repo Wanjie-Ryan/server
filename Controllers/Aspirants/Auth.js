@@ -42,16 +42,17 @@ const login = async(req, res, next)=>{
 
         if(!email || !Password){
 
-            res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide the email and the password'})
+             return res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide the email and the password'})
         }
 
         const AspirantEmail = await aspirantmodel.findOne({email})
 
         if(!AspirantEmail){
 
-            res.status(StatusCodes.NOT_FOUND).json({msg:'The Email does not exist!'})
+             return res.status(StatusCodes.NOT_FOUND).json({msg:'The Email does not exist!'})
         }
 
+    
         const aspirantnew = AspirantEmail.toObject()
         delete aspirantnew.Password
         delete aspirantnew.phoneNumber
@@ -74,8 +75,8 @@ const login = async(req, res, next)=>{
         
         
         // res.status(StatusCodes.OK).cookie('AspirantToken', token, {secure:true, httpOnly:true, maxAge:24*60*60}).json({msg:'Aspirant has been logged in successfully', aspirantnew })
-
-        res.status(StatusCodes.OK).set({AspirantToken:token}).json({msg:`Aspirant has been logged in successfully`, aspirantnew})
+        res.set({AspirantToken:token})
+        res.status(StatusCodes.OK).json({msg:`Aspirant has been logged in successfully`, aspirantnew})
 
 
 
@@ -99,22 +100,34 @@ const logout = (req, res)=>{
 }
 
 
-const veirfyToken = async(req, res, next)=>{
+const verifyToken = async(req, res, next)=>{
 
     try{
 
-        
+        if (req.headers.authorization) {
 
+            const authHeader = req.headers.authorization
+            const token = authHeader.replace('Bearer ', '')
+            const decoded = jwt.verify(token, process.env.Aspirant_secret_key)
+            req.token = decoded
 
+            res.json({type:'success'})
+        }
+
+        else {
+
+            throw new Error()
+        }
     }
 
     catch(err){
 
-        next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+        // next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
 
+        res.json({ type: 'error', message: 'Please authenticate', details: err })
 
     }
 }
 
 
-module.exports ={register, login,logout,veirfyToken}
+module.exports ={register, login,logout,verifyToken }
