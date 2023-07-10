@@ -2,7 +2,7 @@ const votersmodel = require('../../Models/voters')
 const {StatusCodes} = require('http-status-codes')
 const error = require('../../utils/error');
 const aspirant = require('../../Models/aspirants')
-
+const jwt = require('jsonwebtoken')
 
 
 const postdetails = async(req, res,next)=>{
@@ -25,6 +25,10 @@ const postdetails = async(req, res,next)=>{
             return res.status(StatusCodes.BAD_REQUEST).json({msg:'Voter not registered'})
         }
 
+        const token = jwt.sign({id:voterdata._id}, process.env.Voter_key, {expiresIn:'3m'})
+
+        res.set({voterToken:token})
+
          res.status(StatusCodes.CREATED).json({msg:'Voter details submitted successfully', voterdata})
 
 
@@ -37,7 +41,37 @@ const postdetails = async(req, res,next)=>{
     
 }
 
+const verifyToken = async(req, res, next)=>{
+
+    try{
+
+        if (req.headers.authorization) {
+
+            const authHeader = req.headers.authorization
+            const token = authHeader.replace('Bearer ', '')
+            const decoded = jwt.verify(token, process.env.Aspirant_secret_key)
+            req.token = decoded
+
+            res.json({type:'success'})
+        }
+
+        else {
+
+            throw new Error()
+        }
+    }
+
+    catch(err){
+
+        // next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+
+        res.json({ type: 'error', message: 'Please authenticate', details: err })
+
+    }
+}
 
 
 
-module.exports ={postdetails}
+
+
+module.exports ={postdetails,verifyToken}

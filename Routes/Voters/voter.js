@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {postdetails} = require('../../Controllers/Voters/voters')
+const {postdetails,verifyToken} = require('../../Controllers/Voters/voters')
 
 
 router.route('/submission').post(postdetails)
+
+router.route('/verify').get(verifyToken)
 
 
 module.exports = router

@@ -2,7 +2,7 @@ const votersmodel = require('../../Models/voters')
 const {StatusCodes} = require('http-status-codes')
 const error = require('../../utils/error');
 const aspirantmodel = require('../../Models/aspirants')
-
+const jwt = require('jsonwebtoken')
 
 
 
@@ -46,6 +46,8 @@ const AllVoters = async(req, res, next)=>{
            aspirantsvoters = await votersmodel.find({AspirantID:aspvo})
 
            const aspvoterscount = aspirantsvoters.length
+
+           
 
         
             return res.status(StatusCodes.OK).json({msg:`The voters who voted for you are:` , voters:aspirantsvoters, count:aspvoterscount})
