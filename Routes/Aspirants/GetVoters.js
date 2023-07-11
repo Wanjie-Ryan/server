@@ -4,7 +4,7 @@ const {AllVoters} = require('../../Controllers/Aspirants/GetVoters')
 const verifyJwt = require('../../Authmiddleware/authmid')
 const {veirfyToken} = require('../../Controllers/Aspirants/Auth')
 
-router.route('/allvoters').get( AllVoters)
+router.route('/allvoters/:id').get( AllVoters)
 
 
 module.exports = router

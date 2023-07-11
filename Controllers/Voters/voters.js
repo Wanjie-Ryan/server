@@ -22,21 +22,23 @@ const postdetails = async(req, res,next)=>{
 
         if(!voterdata){
 
-            return res.status(StatusCodes.BAD_REQUEST).json({msg:'Voter not registered'})
+            return res.status(StatusCodes.BAD_REQUEST).json({msg:'Voter count not registered'})
         }
 
-        const token = jwt.sign({id:voterdata._id}, process.env.Voter_key, {expiresIn:'3m'})
+        const token = jwt.sign({id:voterdata._id}, process.env.Voter_key, {expiresIn:'7d'})
 
         res.set({voterToken:token})
 
          res.status(StatusCodes.CREATED).json({msg:'Voter details submitted successfully', voterdata})
-
 
     }
 
     catch(err){
 
         next(error(StatusCodes.INTERNAL_SERVER_ERROR), err.message)
+        console.log(err)
+        // next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
+
     }
     
 }
@@ -49,7 +51,7 @@ const verifyToken = async(req, res, next)=>{
 
             const authHeader = req.headers.authorization
             const token = authHeader.replace('Bearer ', '')
-            const decoded = jwt.verify(token, process.env.Aspirant_secret_key)
+            const decoded = jwt.verify(token, process.env.Voter_key)
             req.token = decoded
 
             res.json({type:'success'})
@@ -65,7 +67,7 @@ const verifyToken = async(req, res, next)=>{
 
         // next(error(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
 
-        res.json({ type: 'error', message: 'Please authenticate', details: err })
+        res.json({ type: 'error', message: 'You cannot vote again', details: err })
 
     }
 }
