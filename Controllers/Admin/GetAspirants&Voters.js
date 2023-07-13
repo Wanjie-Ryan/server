@@ -79,7 +79,7 @@ const updateAspirant = async(req,res, next)=>{
             return res.status(StatusCodes.NOT_FOUND).json({msg:`The Aspirant with id:${Aspid} cannot be found`})
         }
 
-        res.status(StatusCodes.OK).json({msg:`The Aspirant with the id:${Aspid} has been fetched successfully`, updateAsp})
+        res.status(StatusCodes.OK).json({msg:`The Aspirant with the id:${Aspid} has been updated successfully`, updateAsp})
 
     }
 

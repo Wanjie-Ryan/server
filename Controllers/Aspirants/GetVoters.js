@@ -47,8 +47,6 @@ const AllVoters = async(req, res, next)=>{
 
            const aspvoterscount = aspirantsvoters.length
 
-
-
         
             return res.status(StatusCodes.OK).json({msg:`The voters who voted for you are:` , voters:aspirantsvoters, count:aspvoterscount})
         }
