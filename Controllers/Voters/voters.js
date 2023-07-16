@@ -18,7 +18,7 @@ const postdetails = async(req, res,next)=>{
             return res.status(StatusCodes.NOT_FOUND).json({msg:'Aspirant not found'})
         }
 
-        const voterdata = await votersmodel.create({name, phoneNumber, AspirantID:aspirantperson})
+        const voterdata = await votersmodel.create({name, phoneNumber, AspirantID:aspirantperson._id})
 
         if(!voterdata){
 
