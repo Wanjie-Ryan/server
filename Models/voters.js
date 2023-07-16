@@ -22,6 +22,7 @@ const VotersSchema = mongoose.Schema({
         type:Number,
         required:[true, 'The voters phoneNumber is required'],
         unique:true,
+        maxLength:10
         
     }
 
